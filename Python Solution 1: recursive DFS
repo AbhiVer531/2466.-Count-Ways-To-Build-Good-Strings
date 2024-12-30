@@ -1,0 +1,15 @@
+class Solution:
+    def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
+        MOD = 10**9 + 7
+        dp = {}
+        def helper(curr_len):
+            if curr_len > high:
+                return 0
+            if curr_len in dp:
+                return dp[curr_len]
+            count = 1 if low <= curr_len <= high else 0
+            count += helper(curr_len + zero)
+            count += helper(curr_len + one)
+            dp[curr_len] = count % MOD
+            return dp[curr_len]
+        return helper(0)
